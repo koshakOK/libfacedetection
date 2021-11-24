@@ -11,15 +11,15 @@ def str2bool(v: str) -> bool:
     else:
         raise NotImplementedError
 
-def visualize(image, faces, print_flag=False, fps=None):
+def visualize(image, faces, print_flag=True, fps=None):
     output = image.copy()
 
     if fps:
         cv.putText(output, 'FPS: {:.2f}'.format(fps), (0, 15), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0))
-
-    for idx, face in enumerate(faces):
-        if print_flag:
-            print('Face {}, top-left coordinates: ({:.0f}, {:.0f}), box width: {:.0f}, box height {:.0f}, score: {:.2f}'.format(idx, face[0], face[1], face[2], face[3], face[-1]))
+    if type(faces) is not type(None):
+        for idx, face in enumerate(faces):
+            if print_flag:
+                print('Face {}, top-left coordinates: ({:.0f}, {:.0f}), box width: {:.0f}, box height {:.0f}, score: {:.2f}'.format(idx, face[0], face[1], face[2], face[3], face[-1]))
 
         coords = face[:-1].astype(np.int32)
         # Draw face bounding box
